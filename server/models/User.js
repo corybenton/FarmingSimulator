@@ -8,9 +8,14 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
-        email: {type: String, required: true},
+        email: {
+            type: String, 
+            required: true,
+            unique: true,
+        },
         password: {type: String, required: true},
         crops: [cropSchema],
+        money: Number,
     },
     {
         toJSON: {
@@ -18,3 +23,7 @@ const userSchema = new mongoose.Schema(
         },
     }
 );
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
