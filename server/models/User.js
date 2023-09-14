@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
             unique: true,
         },
         password: {type: String, required: true},
-        crops: [cropSchema],
+        farm: { type: mongoose.Schema.Types.ObjectId, ref: "Farm" },
         money: Number,
     },
     {
