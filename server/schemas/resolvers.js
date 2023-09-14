@@ -1,4 +1,4 @@
-const { User, Crop } = require('../models');
+const { Crop, Farm, User  } = require('../models');
 
 const resolvers = {
     Query: {
@@ -6,11 +6,11 @@ const resolvers = {
             const params = _id ? { _id } : {};
             return User.find(params);
         },
+        crops: async () => {
+            return Crop.find({});
+        },
         
-    },
-    Mutation: {
-
-    },
-};
+    }
+}
 
 module.exports = resolvers;
