@@ -9,7 +9,6 @@ const resolvers = {
         crops: async () => {
             return Crop.find({});
         },
-        
     }
 }
 
