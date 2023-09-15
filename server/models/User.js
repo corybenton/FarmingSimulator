@@ -1,24 +1,29 @@
 const mongoose = require('mongoose');
 const cropSchema = require('./Crop');
 
-const userSchema = new mongoose.Schema({
-    _id: Integer,
-    username: { 
-        type: String,
-        required: true,
-        unique: true,
+const userSchema = new mongoose.Schema(
+    {
+        username: { 
+            type: String,
+            required: true,
+            unique: true,
+        },
+        email: {
+            type: String, 
+            required: true,
+            unique: true,
+        },
+        password: {type: String, required: true},
+        farm: { type: mongoose.Schema.Types.ObjectId, ref: "Farm" },
+        money: Number,
     },
-    email: {type: String, required: true},
-    password: {type: String, required: true},
-    crops: [cropSchema],
-},
-{
-    toJSON: {
-        getters: true,
-    },
-}
-)
+    {
+        toJSON: {
+            getters: true,
+        },
+    }
+);
 
 const User = mongoose.model('User', userSchema);
 
-const handleError = (err) => console.log(err);
+module.exports = User;
