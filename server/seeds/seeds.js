@@ -12,4 +12,4 @@ db.once('open', async () => {
 
     await User.insertMany(userData);
     await Crop.insertMany(cropData);
-})
+});
