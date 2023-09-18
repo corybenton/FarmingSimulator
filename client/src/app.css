@@ -1,0 +1,22 @@
+footer, .plant {
+    text-align: center;
+}
+
+footer {
+    margin-top: 5%;
+}
+
+.icon {
+    height: 30px;
+}
+
+.activeIcon {
+    height: 50px;
+}
+
+.plant {
+    font-size: 30px;
+    height: 60px;
+    width: 80px;
+    margin: 70px 22px 20px;
+}
