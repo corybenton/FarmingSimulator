@@ -23,7 +23,8 @@ const Farm = () => {
     ];
 
     const [drawerState, setDrawerState] = React.useState({ bottom: false });
-    const [activePlantState, setActivePlantState] = React.useState(TomatoIcon);
+    const [activePlantIconState, setActivePlantIconState] = React.useState(TomatoIcon);
+    const [activePlantState, setActivePlantState] = React.useState('tomato');
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -53,8 +54,10 @@ const Farm = () => {
     );
 
     const handleChooser = (event) => {
-        setActivePlantState(event.target.src);
-        //console.log(activePlantState);
+        setActivePlantIconState(event.target.src);
+        let plant = event.target.src.split("/");
+        plant = plant[5].split("-");
+        setActivePlantState(plant[0]);
     }
 
     const handleSell = () => {
@@ -71,7 +74,7 @@ const Farm = () => {
                             ariaLabel="Plant Chooser"
                             sx={{ position: 'absolute', top: 16, left: 16 }}
                             direction='right'
-                            icon={<img className='activeIcon' src={activePlantState} />}
+                            icon={<img className='activeIcon' src={activePlantIconState} />}
                         >
                             {choices.map((action) => (
                                 <SpeedDialAction
@@ -91,12 +94,12 @@ const Farm = () => {
             </div>
             <Grid container spacing={0}>
                 <Grid div xs={6}>
-                    <Plot />
-                    <Plot />
+                    <Plot activePlantState={activePlantState}/>
+                    <Plot activePlantState={activePlantState}/>
                 </Grid>
                 <Grid div xs={6}>
-                    <Plot />
-                    <Plot />
+                    <Plot activePlantState={activePlantState}/>
+                    <Plot activePlantState={activePlantState}/>
                 </Grid>
             </Grid>
             <div>
