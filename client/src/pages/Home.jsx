@@ -12,11 +12,13 @@ const Home = () => {
                     Blurb about game and how to play.
                 </div>
                 <div>
-                    {/* {Auth.loggedIn() (
+                    {Auth.loggedIn() ? (
                     <>
                         <button>To My Farm!</button>
                     </>
-                    )} */}
+                    ): (
+                        <></>
+                    )}
                 </div>
             </div>
         </main>

@@ -1,16 +1,19 @@
 import Plot from '../components/Plot';
 import * as React from 'react';
 import {
-    Box, SpeedDial, SpeedDialIcon, SpeedDialAction, Grid, Drawer, Button,
-    List, ListItem, TablePagination, ListItemButton, ListItemText, SvgIcon
+    Box, SpeedDial, SpeedDialAction, Grid, Drawer, Button, Icon,
+    List, ListItem, TablePagination, ListItemButton, ListItemText
 } from '@mui/material';
 import { useQuery } from '@apollo/client';
+import { QUERY_MONEY, QUERY_PLOTS, QUERY_VEGGIE } from '../utils/queries';
 import CornIcon from '../assets/corn-svgrepo-com.svg';
-import TomatoIcon from '../assets/tomato-svgrepo-com.svg'
-import PumpkinIcon from '../assets/pumpkin-fruit-svgrepo-com.svg'
-import LettuceIcon from '../assets/lettuce-svgrepo-com.svg'
-import BlueberryIcon from '../assets/blueberries-svgrepo-com.svg'
-import EggplantIcon from '../assets/eggplant-svgrepo-com.svg'
+import TomatoIcon from '../assets/tomato-svgrepo-com.svg';
+import PumpkinIcon from '../assets/pumpkin-fruit-svgrepo-com.svg';
+import LettuceIcon from '../assets/lettuce-svgrepo-com.svg';
+import BlueberryIcon from '../assets/blueberries-svgrepo-com.svg';
+import EggplantIcon from '../assets/eggplant-svgrepo-com.svg';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+
 
 const Farm = () => {
     const choices = [
@@ -25,6 +28,10 @@ const Farm = () => {
     const [drawerState, setDrawerState] = React.useState({ bottom: false });
     const [activePlantIconState, setActivePlantIconState] = React.useState(TomatoIcon);
     const [activePlantState, setActivePlantState] = React.useState('tomato');
+
+    const drawerChoice = ['Tomato', 'Pumpkin', 'Corn', 'Lettuce', 'Blueberry', 'Eggplant'];
+    const { data: plotNumber } = useQuery(QUERY_PLOTS);
+    const { data: myMoney } = useQuery(QUERY_MONEY);
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -42,10 +49,11 @@ const Farm = () => {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Pumpkin', 'Tomato', 'Corn', 'Lettuce', 'Blueberry', 'Eggplant'].map((text, index) => (
+                {drawerChoice.map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton onClick={handleSell}>
                             <ListItemText primary={text} />
+                            <p>0</p>
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -88,25 +96,26 @@ const Farm = () => {
                         </SpeedDial>
                     </Box>
                 </div>
-                <div>
-                    {/* money */}
+                <div className='bankAccount floatRight'>
+                    <AccountBalanceIcon  />
+                    <p className='myMoney'>{myMoney}</p>
                 </div>
             </div>
             <Grid container spacing={0}>
-                <Grid div xs={6}>
-                    <Plot activePlantState={activePlantState}/>
-                    <Plot activePlantState={activePlantState}/>
+                <Grid div xs={6} className='plotGroup'>
+                    <Plot key={Plot.number} activePlantState={activePlantState}/>
+                    <Plot key={Plot.number} activePlantState={activePlantState}/>
                 </Grid>
                 <Grid div xs={6}>
-                    <Plot activePlantState={activePlantState}/>
-                    <Plot activePlantState={activePlantState}/>
+                    <Plot key={Plot.number} activePlantState={activePlantState}/>
+                    <Plot key={Plot.number} activePlantState={activePlantState}/>
                 </Grid>
             </Grid>
             <div>
                 {/* Inventory/Shop */}
                 {['bottom'].map((anchor) => (
                     <React.Fragment key={anchor}>
-                        <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+                        <Button onClick={toggleDrawer(anchor, true)}>INVENTORY</Button>
                         <Drawer
                             anchor={anchor}
                             open={drawerState[anchor]}

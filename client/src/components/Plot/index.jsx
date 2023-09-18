@@ -34,23 +34,25 @@ const Plot = ({ activePlantState }) => {
         }
 
 
-        if (event.target.innerHTML !== 'X') {
+        if (event.target.src.slice(-21) == Soil) {
             event.target.src = toPlant;
         } else {
             event.target.innerHTML = 'X';
         }
     }
     return (
-    <Container fixed >
-        <Box sx={{bgcolor:'#a64a2b', height: '20vh', width:'85%'}}>
-            <Grid container spacing={0}>
-                <Grid div xs={6}>
+    <Container fixed className='plantContainer' >
+        <Box className='plantBox' sx={{bgcolor:'#a64a2b', height: '30'}}>
+            <Grid container spacing={0} className='plot'>
+                <Grid div >
                     <img onClick={handlePlant} className='plant' src={Soil}/>
                     <img onClick={handlePlant} className='plant' src={Soil}/>
+                {/* </Grid>
+                <Grid div sm={3}> */}
                     <img onClick={handlePlant} className='plant' src={Soil}/>
-                </Grid>
-                <Grid div xs={6}>
                     <img onClick={handlePlant} className='plant' src={Soil}/>
+                {/* </Grid>
+                <Grid div sm={3}> */}
                     <img onClick={handlePlant} className='plant' src={Soil}/>
                     <img onClick={handlePlant} className='plant' src={Soil}/>
                 </Grid>
