@@ -20,28 +20,27 @@ const resolvers = {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
             return { token, user };
-          },
-          login: async (parent, { email, password }) => {
+        },
+        login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
-      
+        
             if (!user) {
-              throw AuthenticationError;
+                throw AuthenticationError;
             }
-      
+        
             const correctPw = await user.isCorrectPassword(password);
-      
+        
             if (!correctPw) {
-              throw AuthenticationError;
+                throw AuthenticationError;
             }
-      
+        
             const token = signToken(user);
-      
+        
             return { token, user };
-          },
-        //   buyPlot: async (parent, args) => {
-        //     plots = plots + 1;
-        //     return plots;
-        // }
+        },
+        buyPlot: async (parent, { _id }) => {
+            const farm = await User.findOneAndUpdate({_id :id}, {$inc : {'farm.plots' : 1}});
+        }
     }
 }
 
