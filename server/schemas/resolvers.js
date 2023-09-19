@@ -62,8 +62,9 @@ const resolvers = {
             return { token, user };
         },
         buyPlot: async (parent, { _id }) => {
-            const farm = await User.findOneAndUpdate({_id :id}, {$inc : {'farm.plots' : 1}});
+            const farm = await User.findOneAndUpdate({ _id }, {$inc : {'farm.plots' : 1}});
         }
+        // addCrop: async (parent, )
     }
 }
 

@@ -26,8 +26,11 @@ const userSchema = new Schema(
         money: { 
             type: Number,
             default: 0,
+        },
+        inventory: {
+            item: { type: String },
+            quantity: { type: Number },
         }
-        // inventory: {}
     },
 );
 
