@@ -17,7 +17,7 @@ const Header = () => {
                 <div>
                     {Auth.loggedIn() ? (
                         <>
-                            <span>Welcome, {Auth.getProfile().data.username}!</span>
+                            {/* <span>Welcome, {Auth.getProfile().data.username}!</span> */}
                             <button onClick={logout}>Logout</button>
                         </>
                     ) : (
