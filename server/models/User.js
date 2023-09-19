@@ -19,8 +19,14 @@ const userSchema = new Schema(
             required: true,
             minlength: 5,
         },
-        farm: { type: Schema.Types.ObjectId, ref: "Farm" },
-        money: { type: Number, default: 0}
+        farm: { 
+            type: Schema.Types.ObjectId,
+            ref: "Farm",
+        },
+        money: { 
+            type: Number,
+            default: 0,
+        }
         // inventory: {}
     },
 );

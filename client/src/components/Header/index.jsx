@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { Grid } from '@mui/material';
 
 import Auth from '../../utils/auth';
@@ -7,28 +7,29 @@ const Header = () => {
     const logout = (event) => {
         event.preventDefault();
         Auth.logout();
+        location.replace('/');
     };
     return (
         <header>
-            <Grid xs={6} className='group'>
+            <Grid className='group'>
                 <div className='center'>
                     <h1>Farming Simulator</h1>
                 </div>
-                <div>
+                <div className='floatRight getin'>
                     {Auth.loggedIn() ? (
                         <>
                             {/* <span>Welcome, {Auth.getProfile().data.username}!</span> */}
-                            <button onClick={logout}>Logout</button>
+                            <button onClick={logout} >Logout</button>
                         </>
                     ) : (
-                        <Grid className='floatRight getin' xs={6}>
+                        <div>
                             <div>
                             <Link to="/login">Login</Link>
                             </div>
                             <div>
                             <Link to="/signup">Signup</Link>
                             </div>
-                        </Grid>
+                        </div>
                     )}
                 </div>
             </Grid>

@@ -5,7 +5,7 @@ import {
     List, ListItem, Container, ListItemButton, ListItemText
 } from '@mui/material';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_MONEY, QUERY_PLOTS, QUERY_VEGGIE } from '../utils/queries';
+import { QUERY_MONEY, QUERY_PLOTS, QUERY_FARM } from '../utils/queries';
 import CornIcon from '../assets/corn-svgrepo-com.svg';
 import TomatoIcon from '../assets/tomato-svgrepo-com.svg';
 import PumpkinIcon from '../assets/pumpkin-fruit-svgrepo-com.svg';
@@ -31,12 +31,14 @@ const Farm = () => {
     const [activePlantState, setActivePlantState] = React.useState('tomato');
 
     const drawerChoice = ['Tomato', 'Pumpkin', 'Corn', 'Lettuce', 'Blueberry', 'Eggplant'];
-    // const { data: plotNumber } = useQuery(QUERY_PLOTS);
-    const plotNumber = 1;
-    //const { data: myMoney } = useQuery(QUERY_MONEY);
-    const myMoney = 5000;
-    const [moneyState, setMoneyState] = React.useState(myMoney);
-    const plotCost = 5000 * plotNumber
+    const { data: plotObj } = useQuery(QUERY_PLOTS);
+    const { data: myMoney, loading } = useQuery(QUERY_MONEY);
+    const plotNumber = plotObj.plots.farm.plots || 1;
+    
+
+    // const [moneyState, setMoneyState] = React.useState(myMoney.money.money) || 0;
+
+    const plotCost = 1000 * plotNumber;
 
     let plotStatus = [];
     for (let i = 0; i < 4; i++) {
@@ -47,7 +49,8 @@ const Farm = () => {
         }
     }
     
-    
+    const { data: plantedCrops } = useQuery(QUERY_FARM);
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -88,9 +91,9 @@ const Farm = () => {
     }
 
     const handleBuy = () => {
-        if (moneyState >= plotCost) {
+        if (myMoney >= plotCost) {
             useMutation(BUY_PLOT);
-            // moneyState = setMoneyState(moneyState - plotCost);
+            setMoneyState(myMoney - plotCost);
         } else {
             console.log('Not enough money');
         }
@@ -122,19 +125,19 @@ const Farm = () => {
                 </div>
                 <div className='bankAccount floatRight'>
                     <AccountBalanceIcon  />
-                    <p className='myMoney'>${moneyState}</p>
+                    {!loading && <p className='myMoney'>${myMoney.money.money}</p>}
                 </div>
             </div>
                 <div className='plotGroup'>
-                {plotStatus.map((index) => {
+                {plotStatus.map((index, i) => {
                     return (
-                        <div>
+                        <div key={i}>
                     {index  ? (
                         <div>
-                        <Plot activePlantState={activePlantState}/>
+                        <Plot activePlantState={activePlantState} plotNumber={i}  />
                         </div>
                     ): (
-                        <Container fixed className='plantContainer' >
+                        <Container fixed className='plantContainer'>
                         <Box className='plantBox' sx={{bgcolor:'#6699cc', height:'150px'}}>
                             <button onClick={handleBuy} className='buyPlot'>${plotCost}</button>
                         </Box>

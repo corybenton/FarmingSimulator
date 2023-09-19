@@ -2,6 +2,7 @@ const typeDefs = `
     type Crop {
         cropName: String!
         amount: Int
+        growTime: Int
     }
 
     type Farm {
@@ -24,8 +25,11 @@ const typeDefs = `
 
     type Query {
         user: User
-        crops: [Crop]
-        farm: Farm
+        farm: User
+        money: User
+        plots: User
+        veggie: User
+        crops: User
     }
 
     type Mutation {
