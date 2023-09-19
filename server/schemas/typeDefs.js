@@ -15,6 +15,10 @@ const typeDefs = `
         password: String!
         farm: Farm
         money: Int
+        inventory: {
+            item: String
+            quantity: Int
+        }
     }
 
     type Auth {
@@ -32,6 +36,7 @@ const typeDefs = `
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         buyPlot: Farm
+        
     }
 `
 module.exports = typeDefs;

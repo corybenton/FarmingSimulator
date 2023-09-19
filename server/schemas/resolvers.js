@@ -13,6 +13,10 @@ const resolvers = {
         farm: async (parent, { _id }) => {
             const params = _id ? { _id } : {};
             return Farm.find(params);
+        },
+        inventory: async (parent, { _id }) => {
+            const params = _id ? { _id } : {};
+            return User.find(params).inventory;
         }
     },
     Mutation: {
@@ -39,8 +43,9 @@ const resolvers = {
             return { token, user };
         },
         buyPlot: async (parent, { _id }) => {
-            const farm = await User.findOneAndUpdate({_id :id}, {$inc : {'farm.plots' : 1}});
+            const farm = await User.findOneAndUpdate({ _id }, {$inc : {'farm.plots' : 1}});
         }
+        // addCrop: async (parent, )
     }
 }
 
