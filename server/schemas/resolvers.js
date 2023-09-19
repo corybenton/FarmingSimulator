@@ -25,7 +25,7 @@ const resolvers = {
         },
         plots: async (parent, args, context) => {
             const userId = context.user._id;
-            const user = User.findById(userId);
+            const user = User.findById(userId).populate('farm');
             return user;
         },
     },
