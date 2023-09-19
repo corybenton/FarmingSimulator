@@ -31,12 +31,14 @@ const Farm = () => {
     const [activePlantState, setActivePlantState] = React.useState('tomato');
 
     const drawerChoice = ['Tomato', 'Pumpkin', 'Corn', 'Lettuce', 'Blueberry', 'Eggplant'];
-    // const { data: plotNumber } = useQuery(QUERY_PLOTS);
-    const plotNumber = 1;
-    const { data: myMoney } = useQuery(QUERY_MONEY);
-    //const myMoney = 5000;
-    // const [moneyState, setMoneyState] = React.useState(myMoney);
-    const plotCost = 5000 * plotNumber;
+    const { data: plotObj } = useQuery(QUERY_PLOTS);
+    const plotNumber = 1; //plotObj.farm.plots;
+    const { data: myMoney, loading } = useQuery(QUERY_MONEY);
+    
+
+    // const [moneyState, setMoneyState] = React.useState(myMoney.money.money) || 0;
+
+    const plotCost = 1000 * plotNumber;
 
     let plotStatus = [];
     for (let i = 0; i < 4; i++) {
@@ -47,7 +49,7 @@ const Farm = () => {
         }
     }
     
-    // const plantedCrops = useQuery(QUERY_FARM);
+    const { data: plantedCrops } = useQuery(QUERY_FARM);
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -123,19 +125,19 @@ const Farm = () => {
                 </div>
                 <div className='bankAccount floatRight'>
                     <AccountBalanceIcon  />
-                    <p className='myMoney'>$</p>
+                    {!loading && <p className='myMoney'>${myMoney.money.money}</p>}
                 </div>
             </div>
                 <div className='plotGroup'>
-                {plotStatus.map((index) => {
+                {plotStatus.map((index, i) => {
                     return (
-                        <div>
+                        <div key={i}>
                     {index  ? (
-                        <div key={Plot.number}>
-                        <Plot activePlantState={activePlantState}/>
+                        <div>
+                        <Plot activePlantState={activePlantState} plotNumber={i}  />
                         </div>
                     ): (
-                        <Container fixed className='plantContainer' key={Plot.number}>
+                        <Container fixed className='plantContainer'>
                         <Box className='plantBox' sx={{bgcolor:'#6699cc', height:'150px'}}>
                             <button onClick={handleBuy} className='buyPlot'>${plotCost}</button>
                         </Box>

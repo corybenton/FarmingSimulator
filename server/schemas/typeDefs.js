@@ -25,17 +25,18 @@ const typeDefs = `
 
     type Query {
         user: User
-        crops: Farm
+        farm: User
         money: User
-        plots: Farm
-        veggie: Crop
+        plots: User
+        veggie: User
+        crops: User
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        buyPlot: Farm
-        plantPlant: Farm
+        buyPlot: User
+        plantPlant: User
     }
 `
 module.exports = typeDefs;

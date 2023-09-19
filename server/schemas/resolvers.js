@@ -3,22 +3,31 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        user: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return User.find(params);
-        },
-        crops: async () => {
-            return Farm.find({});
-        },
-        // farm: async (parent, { _id }) => {
-        //     const params = _id ? { _id } : {};
-        //     return Farm.find(params);
-        // },
-        money: async (parent, args) => {
-            const params = _id ? args._id : {};
-            const user = User.find(params);
+        user: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
             return user;
-        }
+        },
+        crops: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
+        },
+        farm: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
+        },
+        money: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
+        },
+        plots: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
+        },
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
@@ -43,13 +52,17 @@ const resolvers = {
       
             return { token, user };
         },
-        buyPlot: async (parent, args) => {
-            //const 
-            plots = plots + 1;
-            return plots;
+        buyPlot: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            const money = user.money.money - (user.plots.plots * 1000)
+            const plots = user.farm.plots + 1;
+            return money, plots;
         },
-        plantPlant: async (parent, { cropName, growTime }) => {
-            //do Stuff
+        plantPlant: async (parent, { cropName, growTime }, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            //user.farm.plantedCrops = ...user.farm.plantedCrops + {cropName, growTime}
         }
     }
 }
