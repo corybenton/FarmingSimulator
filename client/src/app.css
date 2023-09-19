@@ -60,6 +60,11 @@ footer {
     margin-top: -5%;
 }
 
+.buyPlot {
+    font-size: 50px;
+    margin: 15% 25%;
+}
+
 @media screen and (max-width: 750px) {
     .plantBox {
         max-width: 215px;

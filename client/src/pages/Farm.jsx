@@ -2,9 +2,9 @@ import Plot from '../components/Plot';
 import * as React from 'react';
 import {
     Box, SpeedDial, SpeedDialAction, Grid, Drawer, Button, Icon,
-    List, ListItem, TablePagination, ListItemButton, ListItemText
+    List, ListItem, Container, ListItemButton, ListItemText
 } from '@mui/material';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_MONEY, QUERY_PLOTS, QUERY_VEGGIE } from '../utils/queries';
 import CornIcon from '../assets/corn-svgrepo-com.svg';
 import TomatoIcon from '../assets/tomato-svgrepo-com.svg';
@@ -13,6 +13,7 @@ import LettuceIcon from '../assets/lettuce-svgrepo-com.svg';
 import BlueberryIcon from '../assets/blueberries-svgrepo-com.svg';
 import EggplantIcon from '../assets/eggplant-svgrepo-com.svg';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import { BUY_PLOT } from '../utils/mutations';
 
 
 const Farm = () => {
@@ -30,9 +31,23 @@ const Farm = () => {
     const [activePlantState, setActivePlantState] = React.useState('tomato');
 
     const drawerChoice = ['Tomato', 'Pumpkin', 'Corn', 'Lettuce', 'Blueberry', 'Eggplant'];
-    const { data: plotNumber } = useQuery(QUERY_PLOTS);
-    const { data: myMoney } = useQuery(QUERY_MONEY);
+    // const { data: plotNumber } = useQuery(QUERY_PLOTS);
+    const plotNumber = 1;
+    //const { data: myMoney } = useQuery(QUERY_MONEY);
+    const myMoney = 5000;
+    const [moneyState, setMoneyState] = React.useState(myMoney);
+    const plotCost = 5000 * plotNumber
 
+    let plotStatus = [];
+    for (let i = 0; i < 4; i++) {
+        if (plotNumber - 1 >= i) {
+            plotStatus[i] = true;
+        } else {
+            plotStatus[i] = false;
+        }
+    }
+    
+    
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -43,7 +58,7 @@ const Farm = () => {
 
     const list = (anchor) => (
         <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            sx={{ width: 'auto' }}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
@@ -72,6 +87,15 @@ const Farm = () => {
         console.log('x');
     }
 
+    const handleBuy = () => {
+        if (moneyState >= plotCost) {
+            useMutation(BUY_PLOT);
+            moneyState = setMoneyState(moneyState - plotCost);
+        } else {
+            console.log('Not enough money');
+        }
+    }
+
     return (
         <div>
             <div>
@@ -98,19 +122,29 @@ const Farm = () => {
                 </div>
                 <div className='bankAccount floatRight'>
                     <AccountBalanceIcon  />
-                    <p className='myMoney'>{myMoney}</p>
+                    <p className='myMoney'>${moneyState}</p>
                 </div>
             </div>
-            <Grid container spacing={0}>
-                <Grid div xs={6} className='plotGroup'>
-                    <Plot key={Plot.number} activePlantState={activePlantState}/>
-                    <Plot key={Plot.number} activePlantState={activePlantState}/>
-                </Grid>
-                <Grid div xs={6}>
-                    <Plot key={Plot.number} activePlantState={activePlantState}/>
-                    <Plot key={Plot.number} activePlantState={activePlantState}/>
-                </Grid>
-            </Grid>
+                <div className='plotGroup'>
+                {plotStatus.map((index) => {
+                    return (
+                        <div>
+                    {index  ? (
+                        <div>
+                        <Plot activePlantState={activePlantState}/>
+                        </div>
+                    ): (
+                        <Container fixed className='plantContainer' >
+                        <Box className='plantBox' sx={{bgcolor:'#6699cc', height:'150px'}}>
+                            <button onClick={handleBuy} className='buyPlot'>${plotCost}</button>
+                        </Box>
+                    </Container>
+                    )}
+                    </div>
+                    )
+                })}
+
+                </div> 
             <div>
                 {/* Inventory/Shop */}
                 {['bottom'].map((anchor) => (
