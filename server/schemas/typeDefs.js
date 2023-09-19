@@ -9,6 +9,7 @@ const typeDefs = `
 
     type Crop {
         cropName: String!
+        amount: Number
     }
 
     type Farm {
