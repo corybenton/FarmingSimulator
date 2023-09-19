@@ -3,28 +3,47 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        user: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return User.find(params);
+        user: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
         },
-        crops: async () => {
-            return Crop.find({});
+        crops: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
         },
-        farm: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return Farm.find(params);
+        farm: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
         },
-        inventory: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return User.find(params).inventory;
-        }
+        money: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId);
+            return user;
+        },
+        plots: async (parent, args, context) => {
+            const userId = context.user._id;
+            const user = User.findById(userId).populate('farm');
+            return user;
+        },
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
+            try {
+            const farm = await Farm.create({});
             const user = await User.create({ username, email, password });
+            await User.findOneAndUpdate(
+                { _id: user._id },
+                { $addToSet: { farm: farm._id } }
+              );
             const token = signToken(user);
             return { token, user };
-        },
+            } catch (err) {
+                console.error(err);
+            }
+          },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
         

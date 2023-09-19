@@ -8,7 +8,7 @@ import BlueberrySeed from '../../assets/blueberry_seedling.png';
 import EggplantSeed from '../../assets/eggplant_seedling.jpg';
 import Soil from '../../assets/soil.webp';
 
-const Plot = ({ activePlantState, moneyState }) => {
+const Plot = ({ activePlantState, plotNumber }) => {
 
     const handlePlant = async (event) => {
         let toPlant, plantExp;

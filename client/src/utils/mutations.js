@@ -25,9 +25,22 @@ export const ADD_USER = gql`
 export const BUY_PLOT = gql`
   mutation buyPlot {
     buyPlot {
+        money
         farm {
             plots
         }
     }
   }
 `;
+
+export const PLANT_PLANT = gql`
+    mutation plantPlant ($cropName: String!, $growTime: Number!) {
+        plantPlant {
+            farm {
+                plantedCrops{
+                    cropName
+                    growTime
+                }
+            }
+        }
+}`
