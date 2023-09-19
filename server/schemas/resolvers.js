@@ -31,9 +31,18 @@ const resolvers = {
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
+            try {
+            const farm = await Farm.create({});
             const user = await User.create({ username, email, password });
+            await User.findOneAndUpdate(
+                { _id: user._id },
+                { $addToSet: { farm: farm._id } }
+              );
             const token = signToken(user);
             return { token, user };
+            } catch (err) {
+                console.error(err);
+            }
           },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
