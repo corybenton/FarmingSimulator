@@ -10,16 +10,18 @@ const typeDefs = `
         plantedCrops: [Crop]
     }
 
+    type Inventory {
+        item: String
+        quantity: Int
+    }
+
     type User {
         username: String!
         email: String!
         password: String!
         farm: Farm
         money: Int
-        inventory: {
-            item: String
-            quantity: Int
-        }
+        inventory: Inventory
     }
 
     type Auth {
@@ -40,7 +42,7 @@ const typeDefs = `
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         buyPlot: Farm
-        
+
     }
 `
 module.exports = typeDefs;

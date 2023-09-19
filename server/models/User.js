@@ -29,7 +29,7 @@ const userSchema = new Schema(
         },
         inventory: {
             item: { type: String },
-            quantity: { type: Int },
+            quantity: { type: Number },
         }
     },
 );
