@@ -18,5 +18,55 @@ footer {
     font-size: 30px;
     height: 60px;
     width: 80px;
-    margin: 70px 22px 20px;
+    margin: 5px 8px 0px;
+}
+
+.plot {
+    border: 10px solid brown;
+
+}
+
+.plantContainer {
+    padding: 10px;
+    margin: 10px;
+}
+
+.floatRight {
+    float: right;
+    margin-right: 20%;
+    margin-top: -10%;
+}
+
+.bankAccount {
+    border: 3px solid black;
+    padding: 15px 5px 0px;
+    display: inline-flex;
+}
+
+.myMoney {
+    margin-top: 10%;
+}
+
+.plantBox {
+    max-width: 310px;
+}
+
+
+.center {
+    text-align: center;
+}
+
+.getin {
+    margin-top: -5%;
+}
+
+.buyPlot {
+    font-size: 50px;
+    margin: 15% 25%;
+}
+
+@media screen and (max-width: 750px) {
+    .plantBox {
+        max-width: 215px;
+    }
 }

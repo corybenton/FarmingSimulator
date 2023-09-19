@@ -8,49 +8,61 @@ import BlueberrySeed from '../../assets/blueberry_seedling.png';
 import EggplantSeed from '../../assets/eggplant_seedling.jpg';
 import Soil from '../../assets/soil.webp';
 
-const Plot = ({ activePlantState }) => {
+const Plot = ({ activePlantState, moneyState }) => {
 
     const handlePlant = async (event) => {
-        let toPlant;
+        let toPlant, plantExp;
         switch(activePlantState) {
             case 'tomato':
                 toPlant = TomatoSeed;
+                plantExp = 12*60*60;
                 break;
             case 'pumpkin':
                 toPlant = PumpkinSeed;
+                plantExp = 17*60*60;
                 break;
             case 'corn':
                 toPlant = CornSeed;
+                plantExp = 14*60*60;
                 break;
             case 'lettuce':
                 toPlant = LettuceSeed;
+                plantExp = 8*60*60;
                 break;
             case 'blueberries':
                 toPlant = BlueberrySeed;
+                plantExp = 24*60*60;
                 break;
             case 'eggplant':
                 toPlant = EggplantSeed;
+                plantExp = 19*60*60;
                 break;
         }
 
 
-        if (event.target.innerHTML !== 'X') {
+        if (event.target.src.slice(-21) == Soil) {
             event.target.src = toPlant;
+            const randomPlant = activePlantState + Math.floor(Math.random()*1000000);
+            // localStorage.setItem(randomPlant, Date.now() + plantExp);
+        } else if (event.target.src.slice(-12, -4) === 'seedling') {
+            console.log('Growing');
         } else {
-            event.target.innerHTML = 'X';
+
         }
     }
     return (
-    <Container fixed >
-        <Box sx={{bgcolor:'#a64a2b', height: '20vh', width:'85%'}}>
-            <Grid container spacing={0}>
-                <Grid div xs={6}>
+    <Container fixed className='plantContainer' >
+        <Box className='plantBox' sx={{bgcolor:'#a64a2b'}}>
+            <Grid container spacing={0} className='plot'>
+                <Grid div >
                     <img onClick={handlePlant} className='plant' src={Soil}/>
                     <img onClick={handlePlant} className='plant' src={Soil}/>
+                {/* </Grid>
+                <Grid div sm={3}> */}
                     <img onClick={handlePlant} className='plant' src={Soil}/>
-                </Grid>
-                <Grid div xs={6}>
                     <img onClick={handlePlant} className='plant' src={Soil}/>
+                {/* </Grid>
+                <Grid div sm={3}> */}
                     <img onClick={handlePlant} className='plant' src={Soil}/>
                     <img onClick={handlePlant} className='plant' src={Soil}/>
                 </Grid>
