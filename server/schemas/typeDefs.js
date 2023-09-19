@@ -35,8 +35,7 @@ const typeDefs = `
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        buyPlot: User
-        plantPlant: User
+        buyPlot: Farm
     }
 `
 module.exports = typeDefs;
