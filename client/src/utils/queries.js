@@ -2,15 +2,17 @@ import { gql } from '@apollo/client';
 
 export const QUERY_MONEY = gql`
     query money {
-        User {
+        money {
+        user {
             money
         }
     }
+}
 `;
 
 export const QUERY_PLOTS = gql`
     query plots {
-        Farm {
+        farm {
             plots
         }
     }
@@ -18,8 +20,21 @@ export const QUERY_PLOTS = gql`
 
 export const QUERY_VEGGIE = gql`
     query veggie($cropName: String!) {
-        Crop (cropName: $cropName){
+        crop (cropName: $cropName){
             amount
+        }
+    }
+`;
+
+export const QUERY_FARM = gql`
+    query farm {
+        farm {
+            plantedCrops {
+                crop {
+                    cropName
+                    growTime
+                }
+            }
         }
     }
 `;

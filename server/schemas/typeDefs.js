@@ -2,6 +2,7 @@ const typeDefs = `
     type Crop {
         cropName: String!
         amount: Int
+        growTime: Int
     }
 
     type Farm {
@@ -24,13 +25,17 @@ const typeDefs = `
 
     type Query {
         user: User
-        crops: [Crop]
-        farm: Farm
+        crops: Farm
+        money: User
+        plots: Farm
+        veggie: Crop
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
+        buyPlot: Farm
+        plantPlant: Farm
     }
 `
 module.exports = typeDefs;

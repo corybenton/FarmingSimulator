@@ -8,11 +8,16 @@ const resolvers = {
             return User.find(params);
         },
         crops: async () => {
-            return Crop.find({});
+            return Farm.find({});
         },
-        farm: async (parent, { _id }) => {
-            const params = _id ? { _id } : {};
-            return Farm.find(params);
+        // farm: async (parent, { _id }) => {
+        //     const params = _id ? { _id } : {};
+        //     return Farm.find(params);
+        // },
+        money: async (parent, args) => {
+            const params = _id ? args._id : {};
+            const user = User.find(params);
+            return user;
         }
     },
     Mutation: {
@@ -21,7 +26,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
           },
-          login: async (parent, { email, password }) => {
+        login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
       
             if (!user) {
@@ -37,11 +42,15 @@ const resolvers = {
             const token = signToken(user);
       
             return { token, user };
-          },
-        //   buyPlot: async (parent, args) => {
-        //     plots = plots + 1;
-        //     return plots;
-        // }
+        },
+        buyPlot: async (parent, args) => {
+            //const 
+            plots = plots + 1;
+            return plots;
+        },
+        plantPlant: async (parent, { cropName, growTime }) => {
+            //do Stuff
+        }
     }
 }
 

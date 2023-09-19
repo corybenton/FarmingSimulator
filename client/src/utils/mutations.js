@@ -31,3 +31,15 @@ export const BUY_PLOT = gql`
     }
   }
 `;
+
+export const PLANT_PLANT = gql`
+    mutation plantPlant ($cropName: String!, $growTime: Number!) {
+        plantPlant {
+            farm {
+                plantedCrops{
+                    cropName
+                    growTime
+                }
+            }
+        }
+}`
