@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
         },
         farm: { type: mongoose.Schema.Types.ObjectId, ref: "Farm" },
         money: { type: Number, default: 0}
+        // inventory: {}
     },
 );
 

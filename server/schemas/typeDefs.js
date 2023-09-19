@@ -3,6 +3,7 @@ const typeDefs = `
         username: String!
         email: String!
         password: String!
+        farm: Farm
         money: Number
     }
 
@@ -13,5 +14,16 @@ const typeDefs = `
     type Farm {
         plots: Number!
         plantedCrops: [Crop]
+    }
+
+    type Query {
+        user: User
+        crops: [Crop]
+        farm: Farm
+    }
+
+    type Mutation {
+        addUser(username: String!, email: String!, password: String!): Auth
+        login(email: String!, password: String!): Auth
     }
 `
