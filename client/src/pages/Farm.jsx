@@ -90,7 +90,7 @@ const Farm = () => {
     const handleBuy = () => {
         if (moneyState >= plotCost) {
             useMutation(BUY_PLOT);
-            moneyState = setMoneyState(moneyState - plotCost);
+            // moneyState = setMoneyState(moneyState - plotCost);
         } else {
             console.log('Not enough money');
         }

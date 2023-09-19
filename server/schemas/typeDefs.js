@@ -1,20 +1,25 @@
 const typeDefs = `
+    type Crop {
+        cropName: String!
+        amount: Int
+    }
+
+    type Farm {
+        plots: Int!
+        plantedCrops: [Crop]
+    }
+
     type User {
         username: String!
         email: String!
         password: String!
         farm: Farm
-        money: Number
+        money: Int
     }
 
-    type Crop {
-        cropName: String!
-        amount: Number
-    }
-
-    type Farm {
-        plots: Number!
-        plantedCrops: [Crop]
+    type Auth {
+        token: ID!
+        user: User
     }
 
     type Query {
@@ -28,3 +33,4 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
     }
 `
+module.exports = typeDefs;

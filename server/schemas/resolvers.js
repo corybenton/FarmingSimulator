@@ -1,5 +1,5 @@
 const { Crop, Farm, User  } = require('../models');
-import { signToken, AuthenticationError } from '../utils/auth';
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
@@ -38,10 +38,10 @@ const resolvers = {
       
             return { token, user };
           },
-          buyPlot: async (parent, args) => {
-            plots = plots + 1;
-            return plots;
-        }
+        //   buyPlot: async (parent, args) => {
+        //     plots = plots + 1;
+        //     return plots;
+        // }
     }
 }
 

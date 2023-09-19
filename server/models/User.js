@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         username: { 
             type: String,
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema(
             required: true,
             minlength: 5,
         },
-        farm: { type: mongoose.Schema.Types.ObjectId, ref: "Farm" },
+        farm: { type: Schema.Types.ObjectId, ref: "Farm" },
         money: { type: Number, default: 0}
         // inventory: {}
     },
@@ -38,6 +38,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
