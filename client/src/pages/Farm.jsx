@@ -33,7 +33,7 @@ const Farm = () => {
     const drawerChoice = ['Tomato', 'Pumpkin', 'Corn', 'Lettuce', 'Blueberry', 'Eggplant'];
     const { data: plotObj } = useQuery(QUERY_PLOTS);
     const { data: myMoney, loading } = useQuery(QUERY_MONEY);
-    const plotNumber = plotObj.plots.farm.plots || 1;
+    const plotNumber = 1 || plotObj.plots.farm.plots;
     
 
     // const [moneyState, setMoneyState] = React.useState(myMoney.money.money) || 0;
