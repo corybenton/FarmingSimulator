@@ -73,6 +73,10 @@ footer {
     font-size: 40px;
 }
 
+.test {
+    font: 100;
+}
+
 @media screen and (max-width: 750px) {
     .plantBox {
         max-width: 215px;
