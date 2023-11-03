@@ -74,7 +74,7 @@ footer {
 }
 
 .test {
-    font: 100;
+    font: 1000;
 }
 
 @media screen and (max-width: 750px) {
