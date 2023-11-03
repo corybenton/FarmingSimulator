@@ -40,6 +40,7 @@ footer {
     border: 3px solid black;
     padding: 15px 5px 0px;
     display: inline-flex;
+    margin-top: -4%
 }
 
 .myMoney {
@@ -51,7 +52,7 @@ footer {
 }
 
 .getin {
-    margin-top: -5%;
+    margin-top: 0%;
 }
 
 .buyPlot {
