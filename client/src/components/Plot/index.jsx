@@ -39,8 +39,9 @@ const Plot = ({ activePlantState, plotNumber }) => {
                 break;
         }
 
-
-        if (event.target.src.slice(-21) == Soil) {
+        let target = event.target.src.split('/');
+        target = target[target.length - 1].split('.');
+        if (target[0] == 'soil') {
             event.target.src = toPlant;
             const randomPlant = activePlantState + Math.floor(Math.random()*1000000);
             // localStorage.setItem(randomPlant, Date.now() + plantExp);
