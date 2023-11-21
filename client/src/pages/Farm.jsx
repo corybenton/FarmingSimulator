@@ -82,7 +82,7 @@ const Farm = () => {
     const handleChooser = (event) => {
         setActivePlantIconState(event.target.src);
         let plant = event.target.src.split("/");
-        plant = plant[5].split("-");
+        plant = plant[plant.length - 1].split("-");
         setActivePlantState(plant[0]);
     }
 
